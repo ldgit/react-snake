@@ -14,6 +14,7 @@ module.exports = {
   ],
   rules: {
     'no-undef': 'off',
+    'react/prop-types': 'off',
   },
   settings: {
     react: {
