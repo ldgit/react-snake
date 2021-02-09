@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.6.3",
@@ -16,7 +14,9 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.2",
+    "seedrandom": "^3.0.5",
     "styled-components": "^5.2.1",
+    "svelte": "^3.32.2",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
@@ -25,7 +25,7 @@
     "test": "react-scripts test",
     "test:all": "npm run prettier && npm run lint:all && npm t -- --watchAll=false",
     "eject": "react-scripts eject",
-    "prettier": "prettier --check .",
+    "prettier": "prettier --check",
     "lint": "eslint --report-unused-disable-directives --ext .js,.jsx,.ts,.tsx",
     "lint:all": "npm run lint -- ."
   },
