@@ -15,6 +15,7 @@ module.exports = {
   rules: {
     'no-undef': 'off',
     'react/prop-types': 'off',
+    'jest/expect-expect': 'off',
   },
   settings: {
     react: {
