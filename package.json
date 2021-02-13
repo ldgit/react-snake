@@ -23,11 +23,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:all": "npm run prettier && npm run lint:all && npm t -- --watchAll=false",
+    "test:all": "npm run lint:all && npm t -- --watchAll=false",
     "eject": "react-scripts eject",
     "prettier": "prettier --check",
     "lint": "eslint --report-unused-disable-directives --ext .js,.jsx,.ts,.tsx",
-    "lint:all": "npm run lint -- ."
+    "lint:all": "npm run prettier -- . && npm run lint -- ."
   },
   "eslintConfig": {
     "extends": [
