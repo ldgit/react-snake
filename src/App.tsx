@@ -70,6 +70,10 @@ const App: FunctionComponent = () => {
     setSnakeGame(startSnakeGame({}));
   }
 
+  function handleSpeedChange(newDelay: number) {
+    snakeGame.changeDelayBetweenMoves(newDelay);
+  }
+
   return (
     <Main>
       <Title>Snake</Title>
@@ -79,7 +83,7 @@ const App: FunctionComponent = () => {
         </StyledScore>
         <Field gameState={gameState} />
       </Game>
-      <Settings delay={6} />
+      <Settings onSpeedChange={handleSpeedChange} />
       {gameState.gameOver && <GameOver onNewGameClick={restart} finalScore={gameState.score} />}
     </Main>
   );

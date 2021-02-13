@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { speedMap, getDefaultSpeed } from './core/speedLevels';
 
@@ -91,18 +91,47 @@ const SpeedControl = styled.div`
   margin-top: 4px;
 `;
 
-const Settings: FunctionComponent<{ delay: number }> = ({ delay }) => {
-  let speed = getDefaultSpeed();
-  // delay = speedMap[speed].delay;
+const Settings: FunctionComponent<{ onSpeedChange: (speed: number) => void }> = ({
+  onSpeedChange,
+}) => {
+  const [speed, setSpeed] = useState(getDefaultSpeed());
+
+  useEffect(() => {
+    onSpeedChange(speedMap[speed].delay);
+  }, [onSpeedChange, speed]);
+
+  function incrementSpeed() {
+    if (speed < speedMap.length - 1) {
+      setSpeed((previous) => previous + 1);
+    }
+  }
+
+  function decrementSpeed() {
+    if (speed > 0) {
+      setSpeed((previous) => previous - 1);
+    }
+  }
+
+  function handleSpeedChange(event: ChangeEvent<HTMLInputElement>) {
+    const newSpeed = parseInt(event.target.value, 10);
+    setSpeed(newSpeed);
+    onSpeedChange(speedMap[newSpeed].delay);
+  }
+
   return (
     <Controls>
       <span>{speedMap[speed].description}</span>
       <SpeedControl>
-        <button onClick={() => (speed > 0 ? (speed -= 1) : null)}>&#xFF0D;</button>
-        <input type="range" value={speed} min="0" max={speedMap.length - 1} step="1" />
-        <button onClick={() => (speed < speedMap.length - 1 ? (speed += 1) : null)}>
-          &#xFF0B;
-        </button>
+        <button onClick={decrementSpeed}>&#xFF0D;</button>
+        <input
+          type="range"
+          value={speed}
+          min="0"
+          max={speedMap.length - 1}
+          step="1"
+          onChange={handleSpeedChange}
+        />
+        <button onClick={incrementSpeed}>&#xFF0B;</button>
       </SpeedControl>
     </Controls>
   );
