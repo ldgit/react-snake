@@ -1,4 +1,4 @@
-import React, { FunctionComponent, KeyboardEvent, useEffect, useState } from 'react';
+import React, { FunctionComponent, KeyboardEvent, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Field from './Field';
 import Settings from './Settings';
@@ -61,6 +61,14 @@ const App: FunctionComponent = () => {
       window.removeEventListener('keypress', (handleKeypress as unknown) as EventListener);
   }, [snakeGame]);
 
+  // Prevents unnecessary renders of Settings component.
+  const handleSpeedChange = useCallback(
+    (newDelay: number) => {
+      snakeGame.changeDelayBetweenMoves(newDelay);
+    },
+    [snakeGame],
+  );
+
   if (!gameState) {
     return <></>;
   }
@@ -68,10 +76,6 @@ const App: FunctionComponent = () => {
   function restart() {
     snakeGame.destroy();
     setSnakeGame(startSnakeGame({}));
-  }
-
-  function handleSpeedChange(newDelay: number) {
-    snakeGame.changeDelayBetweenMoves(newDelay);
   }
 
   return (
