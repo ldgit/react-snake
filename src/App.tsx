@@ -1,40 +1,57 @@
 import React, { FunctionComponent } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import styled from 'styled-components';
-
-const Title = styled(Typography)`
-  flex-grow: 1;
-`;
-
-const MenuButton = styled(IconButton)`
-  margin-right: 24px;
-`;
+import Field from './Field';
+import Settings from './Settings';
+import Score from './Score';
+import GameOver from './GameOver';
+import { newGame } from './core/newGame';
 
 const Main = styled.main`
-  margin-top: 32px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+`;
+
+const Game = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+const StyledScore = styled.span`
+  font-size: 2rem;
+`;
+
+const Title = styled.h1`
+  color: #ff3e00;
+  text-transform: uppercase;
+  font-size: 8vh;
+  font-weight: 100;
 `;
 
 const App: FunctionComponent = () => {
+  const gameState = newGame();
+
   return (
-    <div>
-      <AppBar position="sticky">
-        <Toolbar>
-          <MenuButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
-          </MenuButton>
-          <Title variant="h6">App</Title>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-      <Main>Content</Main>
-    </div>
+    <Main>
+      <Title>Snake</Title>
+      <Game>
+        <StyledScore>
+          <Score current={50} />
+        </StyledScore>
+        <Field gameState={gameState} />
+      </Game>
+      <Settings delay={6} />
+      {false && (
+        <GameOver
+          onNewGameClick={() => {
+            console.log('');
+          }}
+          finalScore={0}
+        />
+      )}
+    </Main>
   );
 };
 
