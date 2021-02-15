@@ -31,8 +31,10 @@ const Title = styled.h1`
   font-weight: 100;
 `;
 
+const initialSnakeGame = startSnakeGame({});
+
 const App: FunctionComponent = () => {
-  const [snakeGame, setSnakeGame] = useState(startSnakeGame({}));
+  const [snakeGame, setSnakeGame] = useState(initialSnakeGame);
   const [gameState, setGameState] = useState<GameState | undefined>(undefined);
 
   useEffect(() => {
