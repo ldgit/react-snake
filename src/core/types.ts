@@ -1,13 +1,17 @@
 export interface Square {
-  type: string;
-  bodyPart?: 'tail' | 'head' | 'trunk';
-  index?: number;
   id: string;
+  bodyPart?: 'head' | 'trunk' | 'tail';
+  index?: number;
+  type: 'empty' | 'snake' | 'food';
 }
 
+export type Field = Array<Array<Square>>;
+
+export type Direction = 'left' | 'right' | 'up' | 'down';
+
 export interface GameState {
-  field: Array<Array<Square>>;
-  direction: string;
+  field: Field;
+  direction: Direction;
   snakeSize: number;
   foodConsumed: boolean;
   gameOver: boolean;
