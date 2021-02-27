@@ -1,7 +1,6 @@
 {
-  "name": "template-react",
+  "name": "react-snake",
   "version": "0.1.0",
-  "private": true,
   "homepage": "https://ldgit.github.io/react-snake",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
