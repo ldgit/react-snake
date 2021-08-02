@@ -55,10 +55,9 @@ const App: FunctionComponent = () => {
         snakeGame.togglePause();
       }
     }
-    window.addEventListener('keypress', (handleKeypress as unknown) as EventListener);
+    window.addEventListener('keypress', handleKeypress as unknown as EventListener);
 
-    return () =>
-      window.removeEventListener('keypress', (handleKeypress as unknown) as EventListener);
+    return () => window.removeEventListener('keypress', handleKeypress as unknown as EventListener);
   }, [snakeGame]);
 
   // Prevents unnecessary renders of Settings component.

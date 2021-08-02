@@ -10,7 +10,6 @@ module.exports = {
     'plugin:jest/recommended',
     'plugin:eslint-comments/recommended',
     'prettier',
-    'prettier/@typescript-eslint',
   ],
   rules: {
     'no-undef': 'off',
