@@ -27,7 +27,8 @@
     "eject": "react-scripts eject",
     "prettier": "prettier --check",
     "lint": "eslint --report-unused-disable-directives --ext .js,.jsx,.ts,.tsx",
-    "lint:all": "npm run prettier -- . && npm run lint -- ."
+    "lint:all": "npm run prettier -- . && npm run lint -- .",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -56,18 +57,13 @@
     "eslint-plugin-jest": "^24.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^4.3.0",
-    "lint-staged": "^10.5.4",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.1",
     "prettier": "^2.3.2",
     "typescript": "^4.3.5"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "npm run lint --",
-    "*.{js,jsx,ts,ts,tsx,css,md}": "npm run prettier --"
+    "*.{js,jsx,ts,tsx}": "npm run lint -- --fix",
+    "*.{js,jsx,ts,ts,tsx,css,md}": "npm run prettier -- --write"
   }
 }
