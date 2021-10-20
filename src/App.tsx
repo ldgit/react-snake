@@ -9,7 +9,7 @@ import { GameState } from './core/types';
 const App: FunctionComponent = () => {
   const [snakeGame, setSnakeGame] = useState(() => startSnakeGame({}));
   const [gameState, setGameState] = useState<GameState | undefined>(undefined);
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     snakeGame.subscribe((newGameState) => setGameState(newGameState));
