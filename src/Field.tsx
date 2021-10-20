@@ -1,69 +1,25 @@
 import React, { FunctionComponent } from 'react';
-import styled from 'styled-components';
 import { GameState, Square } from './core/types';
 import { HEIGHT, WIDTH } from './core/utils';
-
-const EmptySquare = styled.div`
-  width: 3.4vh;
-  height: 3.4vh;
-`;
-
-const SnakeSquare = styled(EmptySquare)`
-  background-color: black;
-`;
-
-const SnakeHead = styled(SnakeSquare)`
-  width: 3.4vh;
-  height: 3.4vh;
-`;
-
-const SnakeTrunk = styled(SnakeSquare)`
-  width: 3.1vh;
-  height: 3.1vh;
-`;
-
-const SnakeTail = styled(SnakeSquare)`
-  width: 2.5vh;
-  height: 2.5vh;
-`;
-
-const FoodSquare = styled(EmptySquare)`
-  background-color: #ff3e00;
-  border-radius: 50%;
-  width: 3vh;
-  height: 3vh;
-`;
 
 const FieldSquare: FunctionComponent<{ square: Square }> = ({ square }) => {
   if (square?.type === 'snake') {
     switch (square.bodyPart) {
       case 'head':
-        return <SnakeHead />;
+        return <div className="bg-black w-vh-large h-vh-large"></div>;
       case 'trunk':
-        return <SnakeTrunk />;
+        return <div className="bg-black w-vh-medium h-vh-medium"></div>;
       case 'tail':
-        return <SnakeTail />;
+        return <div className="bg-black w-vh-xs h-vh-xs"></div>;
     }
   }
 
   if (square?.type === 'food') {
-    return <FoodSquare />;
+    return <div className="rounded-full bg-svelte-red w-vh-small h-vh-small"></div>;
   }
 
-  return <EmptySquare />;
+  return <div className="w-vh-large h-vh-large"></div>;
 };
-
-const SnakeBox = styled.div`
-  display: grid;
-  grid-template-columns: repeat(${WIDTH}, 3.6vh);
-  grid-template-rows: repeat(${HEIGHT}, 3.6vh);
-  place-items: center center;
-  gap: 0.15vh 0.15vh;
-  padding: 0.15vh;
-  border: 3px solid black;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell,
-    'Helvetica Neue', sans-serif;
-`;
 
 const Field: FunctionComponent<{ gameState: GameState }> = ({ gameState }) => {
   const renderedField = gameState.field.map((row, rowIndex) => {
@@ -72,7 +28,17 @@ const Field: FunctionComponent<{ gameState: GameState }> = ({ gameState }) => {
     ));
   });
 
-  return <SnakeBox>{renderedField}</SnakeBox>;
+  return (
+    <div
+      className="grid place-items-center gap-vh-small p-vh-small border-4 border-solid border-black"
+      style={{
+        gridTemplateColumns: `repeat(${WIDTH}, 3.6vh)`,
+        gridTemplateRows: `repeat(${HEIGHT}, 3.6vh)`,
+      }}
+    >
+      {renderedField}
+    </div>
+  );
 };
 
 export default Field;

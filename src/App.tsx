@@ -1,35 +1,10 @@
 import React, { FunctionComponent, KeyboardEvent, useCallback, useEffect, useState } from 'react';
-import styled from 'styled-components';
 import Field from './Field';
 import Settings from './Settings';
 import Score from './Score';
 import GameOver from './GameOver';
 import startSnakeGame from './core/snake';
 import { GameState } from './core/types';
-
-const Main = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-`;
-
-const Game = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-`;
-
-const StyledScore = styled.span`
-  font-size: 2rem;
-`;
-
-const Title = styled.h1`
-  color: #ff3e00;
-  text-transform: uppercase;
-  font-size: 8vh;
-  font-weight: 100;
-`;
 
 const App: FunctionComponent = () => {
   const [snakeGame, setSnakeGame] = useState(() => startSnakeGame({}));
@@ -78,17 +53,17 @@ const App: FunctionComponent = () => {
   }
 
   return (
-    <Main>
-      <Title>Snake</Title>
-      <Game>
-        <StyledScore>
+    <main className="flex flex-col items-center h-full">
+      <h1 className="uppercase text-7xl text-svelte-red font-thin my-12">Snake</h1>
+      <div className="flex flex-col items-start">
+        <span className="text-3xl w-full">
           <Score current={gameState.score} />
-        </StyledScore>
+        </span>
         <Field gameState={gameState} />
-      </Game>
+      </div>
       <Settings onSpeedChange={handleSpeedChange} />
       {gameState.gameOver && <GameOver onNewGameClick={restart} finalScore={gameState.score} />}
-    </Main>
+    </main>
   );
 };
 
