@@ -9,6 +9,7 @@ import { GameState } from './core/types';
 const App: FunctionComponent = () => {
   const [snakeGame, setSnakeGame] = useState(() => startSnakeGame({}));
   const [gameState, setGameState] = useState<GameState | undefined>(undefined);
+  const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
     snakeGame.subscribe((newGameState) => setGameState(newGameState));
@@ -53,17 +54,24 @@ const App: FunctionComponent = () => {
   }
 
   return (
-    <main className="flex flex-col items-center h-full">
-      <h1 className="uppercase text-7xl text-svelte-red font-thin my-12">Snake</h1>
-      <div className="flex flex-col items-start">
-        <span className="text-3xl w-full">
-          <Score current={gameState.score} />
-        </span>
-        <Field gameState={gameState} />
-      </div>
-      <Settings onSpeedChange={handleSpeedChange} />
-      {gameState.gameOver && <GameOver onNewGameClick={restart} finalScore={gameState.score} />}
-    </main>
+    <div className={`h-full ${darkMode && 'dark'}`}>
+      <main className="flex flex-col items-center h-full dark:bg-gray-900 dark:text-gray-200 transition-colors duration-500">
+        <h1 className="uppercase text-7xl text-svelte-red font-thin my-12">Snake</h1>
+        <div className="flex flex-col items-start">
+          <span className="flex justify-between text-3xl w-full">
+            <span>
+              <Score current={gameState.score} />
+            </span>
+            <button onClick={() => setDarkMode((previous) => !previous)}>
+              {darkMode ? '☀️' : '🌙'}
+            </button>
+          </span>
+          <Field gameState={gameState} />
+        </div>
+        <Settings onSpeedChange={handleSpeedChange} />
+        {gameState.gameOver && <GameOver onNewGameClick={restart} finalScore={gameState.score} />}
+      </main>
+    </div>
   );
 };
 

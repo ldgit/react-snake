@@ -6,11 +6,11 @@ const FieldSquare: FunctionComponent<{ square: Square }> = ({ square }) => {
   if (square?.type === 'snake') {
     switch (square.bodyPart) {
       case 'head':
-        return <div className="bg-black w-vh-large h-vh-large"></div>;
+        return <div className="bg-black dark:bg-green-300 w-vh-large h-vh-large"></div>;
       case 'trunk':
-        return <div className="bg-black w-vh-medium h-vh-medium"></div>;
+        return <div className="bg-black dark:bg-green-300 w-vh-medium h-vh-medium"></div>;
       case 'tail':
-        return <div className="bg-black w-vh-xs h-vh-xs"></div>;
+        return <div className="bg-black dark:bg-green-300 w-vh-xs h-vh-xs"></div>;
     }
   }
 
@@ -30,7 +30,7 @@ const Field: FunctionComponent<{ gameState: GameState }> = ({ gameState }) => {
 
   return (
     <div
-      className="grid place-items-center gap-vh-small p-vh-small border-4 border-solid border-black"
+      className="grid place-items-center gap-vh-small p-vh-small border-4 border-solid border-black dark:border-gray-200"
       style={{
         gridTemplateColumns: `repeat(${WIDTH}, 3.6vh)`,
         gridTemplateRows: `repeat(${HEIGHT}, 3.6vh)`,
