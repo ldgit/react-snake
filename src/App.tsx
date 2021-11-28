@@ -5,19 +5,12 @@ import Score from './Score';
 import GameOver from './GameOver';
 import startSnakeGame from './core/snake';
 import { GameState } from './core/types';
-
-function updateAppearance(darkMode: boolean): void {
-  if (darkMode) {
-    window.document.documentElement.classList.add('dark');
-  } else {
-    window.document.documentElement.classList.remove('dark');
-  }
-}
+import { updateAppearance } from './core/utils';
 
 const App: FunctionComponent = () => {
   const [snakeGame, setSnakeGame] = useState(() => startSnakeGame({}));
   const [gameState, setGameState] = useState<GameState | undefined>(undefined);
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     snakeGame.subscribe((newGameState) => setGameState(newGameState));
