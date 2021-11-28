@@ -6,15 +6,27 @@ import GameOver from './GameOver';
 import startSnakeGame from './core/snake';
 import { GameState } from './core/types';
 
+function updateAppearance(darkMode: boolean): void {
+  if (darkMode) {
+    window.document.documentElement.classList.add('dark');
+  } else {
+    window.document.documentElement.classList.remove('dark');
+  }
+}
+
 const App: FunctionComponent = () => {
   const [snakeGame, setSnakeGame] = useState(() => startSnakeGame({}));
   const [gameState, setGameState] = useState<GameState | undefined>(undefined);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
     snakeGame.subscribe((newGameState) => setGameState(newGameState));
     return snakeGame.destroy;
   }, [snakeGame]);
+
+  useEffect(() => {
+    updateAppearance(darkMode);
+  }, [darkMode]);
 
   useEffect(() => {
     function handleKeypress(event: KeyboardEvent) {
@@ -53,25 +65,26 @@ const App: FunctionComponent = () => {
     setSnakeGame(startSnakeGame({}));
   }
 
+  function toggleDarkMode() {
+    setDarkMode((previous) => !previous);
+    updateAppearance(darkMode);
+  }
+
   return (
-    <div className={`h-full ${darkMode && 'dark'}`}>
-      <main className="flex flex-col items-center h-full dark:bg-gray-900 dark:text-gray-200 transition-colors duration-500">
-        <h1 className="uppercase text-7xl text-svelte-red font-thin my-12">Snake</h1>
-        <div className="flex flex-col items-start">
-          <span className="flex justify-between text-3xl w-full">
-            <span>
-              <Score current={gameState.score} />
-            </span>
-            <button onClick={() => setDarkMode((previous) => !previous)}>
-              {darkMode ? '☀️' : '🌙'}
-            </button>
+    <main className="flex flex-col items-center">
+      <h1 className="uppercase text-7xl text-svelte-red font-thin my-12">Snake</h1>
+      <div className="flex flex-col items-start">
+        <span className="flex justify-between text-3xl w-full">
+          <span>
+            <Score current={gameState.score} />
           </span>
-          <Field gameState={gameState} />
-        </div>
-        <Settings onSpeedChange={handleSpeedChange} />
-        {gameState.gameOver && <GameOver onNewGameClick={restart} finalScore={gameState.score} />}
-      </main>
-    </div>
+          <button onClick={toggleDarkMode}>{darkMode ? '☀️' : '🌙'}</button>
+        </span>
+        <Field gameState={gameState} />
+      </div>
+      <Settings onSpeedChange={handleSpeedChange} />
+      {gameState.gameOver && <GameOver onNewGameClick={restart} finalScore={gameState.score} />}
+    </main>
   );
 };
 
