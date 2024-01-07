@@ -1,4 +1,5 @@
 import { newGame } from '../core/newGame';
+import { expect } from 'vitest';
 
 /**
  * Assertion that ignores square id.
